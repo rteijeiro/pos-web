@@ -15,7 +15,34 @@ echo "</pre>";
 //Mostrar solo el nombre de los usuarios
 foreach ($usuarios as $usuario) {
    
-    echo "Nombre: " . $usuario['Nombre'] . "<br>";
+    echo "Nombre: " . $usuario['nombre'] . "<br>";
+    echo "<hr>";
+}
+$productos = obtenerProductos($pdo);
+
+// Mostrar los usuarios, por ejemplo:
+echo "<pre>";
+print_r($productos);
+echo "</pre>";
+
+//Mostrar solo el nombre de los usuarios
+foreach ($productos as $producto) {
+   
+    echo "Nombre: " . $producto['nombre'] . "<br>";
+    echo "<hr>";
+}
+
+$categorias = obtenerCategorias($pdo);
+
+// Mostrar los usuarios, por ejemplo:
+echo "<pre>";
+print_r($categorias);
+echo "</pre>";
+
+//Mostrar solo el nombre de los usuarios
+foreach ($categorias as $categoria) {
+   
+    echo "Nombre: " . $categoria['nombre'] . "<br>";
     echo "<hr>";
 }
 ?>
