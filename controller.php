@@ -1,5 +1,5 @@
 <?php
-// Archivo: get_users.php
+
 
 include('db.php'); // Asegúrate de incluir el archivo de conexión
 
@@ -16,12 +16,4 @@ function obtenerUsuarios($pdo) {
         return [];
     }
 }
-
-// Llamamos a la función para obtener los usuarios
-$usuarios = obtenerUsuarios($pdo);
-
-// Mostrar los usuarios, por ejemplo:
-echo "<pre>";
-print_r($usuarios);
-echo "</pre>";
 ?>
