@@ -8,7 +8,7 @@ $usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'desco
 <head>
     <meta charset="UTF-8">
     <title>TPV: <?php echo $usuario; ?></title>
-    <link rel="stylesheet" href="/css/tables.css">
+    <link rel="stylesheet" href="css/tables.css">
 </head>
 <body>
 
@@ -53,7 +53,7 @@ $usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'desco
             </div>
         </div>
     </div>
-    <script src="../javascript/tables.js"></script>
+    <script src="tables.js"></script>
 </body>
 </html>
 
