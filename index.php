@@ -1,8 +1,8 @@
 <?php
-include '../connection/controller.php';
-include '../connection/db.php';
+include 'connection/controller.php';
+include 'connection/db.php';
 
-$usuarios = obtenerUsuarios($pdo);
+$usuarios = getUsers($pdo);
 
 
 // Validate admin access when the form is submitted

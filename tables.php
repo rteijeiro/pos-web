@@ -1,6 +1,6 @@
 <?php
 // Get the username from the URL parameter, or set it as 'desconocido' if not provided
-$usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido';
+$usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'desconocido';
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido
 <head>
     <meta charset="UTF-8">
     <title>TPV: <?php echo $usuario; ?></title>
-    <link rel="stylesheet" href="../css/tables.css">
+    <link rel="stylesheet" href="/css/tables.css">
 </head>
 <body>
 
