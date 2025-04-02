@@ -1,4 +1,5 @@
 <?php
+// Get the username from the URL parameter, or set it as 'desconocido' if not provided
 $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido';
 ?>
 
@@ -10,11 +11,13 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido
     <link rel="stylesheet" href="../css/tables.css">
 </head>
 <body>
-<div class="navbar">
+    <!-- Navigation bar with username and title -->
+    <div class="navbar">
         <h1>TPV: <?php echo $usuario; ?></h1>
-        <p>Seleccionar mesa</p>
+        <p>Select a table</p>
     </div>
 
+    <!-- Table selection area -->
     <div class="mesas-container">
         <a href="restaurant.php?mesa=1&user=<?php echo urlencode($usuario); ?>" class="mesa-link">
             <div class="mesa-box">Mesa 1</div>
@@ -28,3 +31,4 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido
     </div>
 </body>
 </html>
+
