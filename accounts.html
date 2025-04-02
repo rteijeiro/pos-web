@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+      }
+      .left-panel {
+        width: 30%;
+        padding: 10px;
+        border-right: 1px solid #ccc;
+      }
+      .right-panel {
+        width: 70%;
+        padding: 10px;
+      }
+      .categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px;
+      }
+      .category {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        cursor: pointer;
+        text-align: center;
+      }
+      .category img {
+        width: 50px;
+        height: 50px;
+      }
+      .subcategory {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+      .item {
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ddd;
+        background: #fafafa;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        border-bottom: 1px solid #ccc;
+      }
+    </style>
+    <script>
+      //show and hide subcategories
+      function toggleSubcategory(id) {
+        var subcategories = document.querySelectorAll(".subcategory");
+        subcategories.forEach((sub) => {
+          if (sub.id !== id) {
+            sub.style.display = "none";
+          }
+        });
+        var subcategory = document.getElementById(id);
+        subcategory.style.display =
+          subcategory.style.display === "none" ||
+          subcategory.style.display === ""
+            ? "flex"
+            : "none";
+      }
+
+      //add an item to the order list and update its quantity and price
+      function addToOrder(itemName, price) {
+        var orderList = document.getElementById("order-list");
+        var items = orderList.getElementsByClassName("order-item");
+        let found = false;
+
+        //check if the item is in the order
+        for (let item of items) {
+          let nameElement = item.querySelector(".order-name");
+          if (nameElement.textContent === itemName) {
+            //if it's, increase the quantity
+            let quantityElement = item.querySelector(".order-quantity");
+            let totalElement = item.querySelector(".order-total");
+            let quantity = parseFloat(quantityElement.textContent) + 1;
+            quantityElement.textContent = quantity;
+            totalElement.textContent = (quantity * price).toFixed(2) + " €";
+            found = true;
+          }
+        }
+
+        //if the item is not in the list, it is added
+        if (!found) {
+          let newItem = document.createElement("div");
+          newItem.classList.add("order-item");
+          newItem.innerHTML = `
+                    <span class="order-quantity">1</span> x 
+                    <span class="order-name">${itemName}</span> 
+                    <span class="order-total">${price.toFixed(2)} €</span>
+                `;
+          orderList.appendChild(newItem);
+        }
+        calculateTotal();
+      }
+
+      //the total is calculated
+      function calculateTotal() {
+        var total = 0;
+        var totals = document.querySelectorAll(".order-total");
+        totals.forEach((item) => {
+          total += parseFloat(item.textContent);
+        });
+        document.getElementById("total-amount").textContent =
+          total.toFixed(2) + " €";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="left-panel">
+      <h3>Pedido</h3>
+      <div id="order-list"></div>
+      <h3>Total: <span id="total-amount">0,00 €</span></h3>
+    </div>
+    <div class="right-panel">
+      <div class="categories">
+        <div
+          class="category"
+          onclick="toggleSubcategory('subcategory-refrescos')"
+        >
+          <img src="" alt="img refrescos" /><span>Refrescos</span>
+        </div>
+        <div class="category" onclick="toggleSubcategory('subcategory-vinos')">
+          <img src="" alt="img vinos" /><span>Vinos</span>
+        </div>
+        <div
+          class="category"
+          onclick="toggleSubcategory('subcategory-pescados')"
+        >
+          <img src="" alt="img pescados" /><span>Pescados</span>
+        </div>
+        <div
+          class="category"
+          onclick="toggleSubcategory('subcategory-mariscos')"
+        >
+          <img src="" alt="img marisco" /><span>Mariscos</span>
+        </div>
+      </div>
+
+      <!--subcategories drinks-->
+      <div id="subcategory-refrescos" class="subcategory">
+        <div class="item" onclick="addToOrder('Coca cola', 1.50)">
+          Coca cola
+        </div>
+        <div class="item" onclick="addToOrder('Zumo de piña', 1.20)">
+          Zumo de piña
+        </div>
+        <div class="item" onclick="addToOrder('Fanta', 1.10)">Fanta</div>
+      </div>
+
+      <!-- subcategories wines-->
+      <div id="subcategory-vinos" class="subcategory">
+        <div class="item" onclick="addToOrder('Vino tinto', 8.00)">
+          Vino tinto
+        </div>
+        <div class="item" onclick="addToOrder('Vino rosado', 7.50)">
+          Vino rosado
+        </div>
+      </div>
+      <!-- subcategories fishes-->
+      <div id="subcategory-pescados" class="subcategory">
+        <div class="item" onclick="addToOrder('Merluza a la romana', 8.50)">
+          Merluza a la romana
+        </div>
+        <div class="item" onclick="addToOrder('Bacalao al horno', 9.00)">
+          Bacalao al horno
+        </div>
+        <div class="item" onclick="addToOrder('Bonito', 10.00)">Bonito</div>
+        <div class="item" onclick="addToOrder('Lubina', 12.00)">Lubina</div>
+      </div>
+      <!-- subcategories seafood-->
+      <div id="subcategory-mariscos" class="subcategory">
+        <div class="item" onclick="addToOrder('Gambas al ajillo', 12.00)">
+          Gambas al ajillo
+        </div>
+        <div class="item" onclick="addToOrder('Langosta a la plancha', 25.00)">
+          Langosta a la plancha
+        </div>
+        <div class="item" onclick="addToOrder('Zamburiñas', 11.00)">
+          Zamburiñas
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
