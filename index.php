@@ -1,9 +1,9 @@
 <?php
-include '../connection/connection.php';
+include '../connection/controller.php';
+include '../connection/db.php';
 
-// Show only waiters and waitresses
-$consulta = "SELECT Nombre, Img FROM usuarios WHERE Rol = 'camarero' OR Rol = 'camarera'";
-$resultado = $conexion->query($consulta);
+$usuarios = obtenerUsuarios($pdo);
+
 
 // Validate admin access when the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
 
     <!-- USERS -->
     <div class="user-container">
-        <?php while ($fila = $resultado->fetch_assoc()): ?>
-            <a href="tables.php?user=<?php echo urlencode($fila['Nombre']); ?>" class="user-box">
-                <img src="../img/<?php echo htmlspecialchars($fila['Img']); ?>" alt="<?php echo htmlspecialchars($fila['Nombre']); ?>">
-                <div class="user-name"><?php echo htmlspecialchars($fila['Nombre']); ?></div>
-            </a>
-        <?php endwhile; ?>
-    </div>
+    <?php foreach ($usuarios as $usuario): ?>
+        <a href="tables.php?user=<?php echo urlencode($usuario['Nombre']); ?>" class="user-box">
+            <img src="../img/<?php echo htmlspecialchars($usuario['Img']); ?>" alt="<?php echo htmlspecialchars($usuario['Nombre']); ?>">
+            <div class="user-name"><?php echo htmlspecialchars($usuario['Nombre']); ?></div>
+        </a>
+    <?php endforeach; ?>
+</div>
 </body>
 </html>
