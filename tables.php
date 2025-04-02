@@ -19,13 +19,13 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'desconocido
 
     <!-- Table selection area -->
     <div class="mesas-container">
-        <a href="restaurant.php?mesa=1&user=<?php echo urlencode($usuario); ?>" class="mesa-link">
+        <a href="restaurant.php?mesa=1" class="mesa-link">
             <div class="mesa-box">Mesa 1</div>
         </a>
-        <a href="restaurant.php?mesa=2&user=<?php echo urlencode($usuario); ?>" class="mesa-link">
+        <a href="restaurant.php?mesa=2&user=" class="mesa-link">
             <div class="mesa-box">Mesa 2</div>
         </a>
-        <a href="restaurant.php?mesa=3&user=<?php echo urlencode($usuario); ?>" class="mesa-link">
+        <a href="restaurant.php?mesa=3&user=" class="mesa-link">
             <div class="mesa-box">Mesa 3</div>
         </a>
     </div>
