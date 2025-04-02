@@ -9,17 +9,15 @@ $usuarios = obtenerUsuarios($pdo);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
     $passwordIngresada = $_POST['admin_password'];
 
-    $stmt = $conexion->prepare("SELECT Clave FROM usuarios WHERE Nombre = 'admin' LIMIT 1");
+    $stmt = $pdo->prepare("SELECT Clave FROM usuarios WHERE Nombre = 'admin' LIMIT 1");
     $stmt->execute();
-    $resultadoAdmin = $stmt->get_result();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($resultadoAdmin && $row = $resultadoAdmin->fetch_assoc()) {
-        if ($passwordIngresada === $row['Clave']) {
-            header("Location: admin.php");
-            exit();
-        } else {
-            $error = "Incorrect password";
-        }
+    if ($row && $passwordIngresada === $row['Clave']) {
+        header("Location: admin.php");
+        exit();
+    } else {
+        $error = "Incorrect password";
     }
 }
 ?>
