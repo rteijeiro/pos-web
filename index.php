@@ -14,7 +14,7 @@ $users = getUsers($pdo);
 </head>
 <body>
   <div class="user-selection-container">
-    <h1 class="screen-title">Seleccionar Usuario</h1>
+    <h1 class="screen-title">Select User</h1>
     
     <div class="user-buttons-container">
     <?php foreach ($users as $users): ?>

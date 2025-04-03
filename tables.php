@@ -21,13 +21,13 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
     <!-- Table selection area -->
     <div class="mesas-container">
         <div class="mesa-link" onclick="openModal(1)">
-            <div class="mesa-box">Mesa 1</div>
+            <div class="mesa-box">Table 1</div>
         </div>
         <div class="mesa-link" onclick="openModal(2)">
-            <div class="mesa-box">Mesa 2</div>
+            <div class="mesa-box">Table 2</div>
         </div>
         <div class="mesa-link" onclick="openModal(3)">
-            <div class="mesa-box">Mesa 3</div>
+            <div class="mesa-box">Table 3</div>
         </div>
     </div>
 
@@ -35,7 +35,7 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
     <div class="modal" id="mesaModal">
         <div class="modal-content">
             <h2>TPV: <?php echo $users; ?></h2>
-            <p>Número de comensales</p>
+            <p>Number of guests</p>
             <input type="text" id="comensalesInput" class="input-display" readonly>
             <div class="keypad">
                 <button onclick="appendNumber('1')">1</button>
