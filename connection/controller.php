@@ -2,10 +2,11 @@
 
 include('db.php');
 
-function getUsers($pdo) {
+function getUsers($pdo)
+{
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM users"); 
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE rol='waiter'");
         $stmt->execute();
 
         // Get all results as an associative array
@@ -16,10 +17,11 @@ function getUsers($pdo) {
     }
 }
 
-function getCategory($pdo) {
+function getCategory($pdo)
+{
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM category");
+        $stmt = $pdo->prepare("SELECT * FROM categories");
         $stmt->execute();
 
         // Get all results as an associative array
@@ -29,10 +31,11 @@ function getCategory($pdo) {
         return [];
     }
 }
-function getProduct($pdo) {
+function getProduct($pdo)
+{
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM products"); 
+        $stmt = $pdo->prepare("SELECT * FROM products");
         $stmt->execute();
 
         // Get all results as an associative array
@@ -44,7 +47,8 @@ function getProduct($pdo) {
 }
 
 
-function getProductsByCategory($pdo, $categoryId) {
+function getProductsByCategory($pdo, $categoryId)
+{
     try {
         $stmt = $pdo->prepare("SELECT name, price FROM products WHERE category_id = ?");
         $stmt->execute([$categoryId]);
@@ -71,6 +75,25 @@ if (isset($_GET['action'])) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
         exit;
+    }
+}
+//function to save payments
+function savePayments($pdo, $id, $date, $total)
+{
+    try {
+        $sql = "INSERT INTO payments (id, date, total) VALUES (:id, :date, :total)";
+        $stmt = $pdo->prepare($sql);
+
+        //assign values to placeholders
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':total', $total, PDO::PARAM_STR);
+
+        //run the query
+        return $stmt->execute();
+        //die function stops execution and displays error message
+    } catch (PDOException $e) {
+        die("Error al guardar el pago: " . $e->getMessage());
     }
 }
 
