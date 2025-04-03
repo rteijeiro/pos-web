@@ -21,7 +21,7 @@ function getCategory($pdo)
 {
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM category");
+        $stmt = $pdo->prepare("SELECT * FROM categories");
         $stmt->execute();
 
         // Get all results as an associative array
