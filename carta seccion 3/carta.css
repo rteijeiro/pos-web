@@ -1,0 +1,204 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif; 
+}
+
+/* General Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    height: 100vh;
+    background-color: #eef1f7;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 20px; 
+}
+
+/* Ticket Section */
+.ticket {
+    background: #fff;
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s; 
+}
+
+/* Adjust padding and height */
+.ticket-header {
+    margin-bottom: 15px; 
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc; 
+}
+
+.ticket-header h3 {
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #333; 
+}
+
+.ticket-header span {
+    font-size: 14px;
+    color: #888; 
+}
+
+/* Ticket Body */
+.ticket-body {
+    flex-grow: 1;
+    margin-bottom: 15px; 
+    border-bottom: 2px solid #ccc; 
+    padding-bottom: 10px;
+}
+
+/* Numeric Keyboard */
+.teclado-numerico {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; 
+    margin-top: 15px; 
+}
+
+.teclado-numerico button {
+    padding: 15px 0; 
+    background: linear-gradient(90deg, #4CAF50, #2E7D32); 
+    border: none;
+    color: white; 
+    font-size: 16px; 
+    cursor: pointer;
+    border-radius: 5px; 
+    text-align: center;
+    transition: background 0.3s, transform 0.2s; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.teclado-numerico button:hover {
+    background: #388E3C; 
+    transform: scale(1.05); 
+}
+
+.teclado-numerico .dark-btn {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+/* Categories Section */
+.productos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px; 
+    background: #fff;
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    margin-top: 20px; /* Add margin to separate from the ticket */
+}
+
+/* Category */
+.categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px; /* Adjusted padding */
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s; 
+}
+
+.categoria:hover {
+    background: #f5f5f5; /* Slightly darker background on hover */
+    transform: translateY(-2px); 
+}
+
+.categoria img {
+    width: 60px; /* Increased image size for better visibility */
+    height: 60px; 
+    margin-bottom: 10px; 
+    object-fit: contain;
+}
+
+.categoria span {
+    font-size: 16px; /* Increased font size for better readability */
+    color: #333; /* Darker color for text */
+}
+
+/* Quantity Control */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Space between image and controls */
+}
+
+.quantity-btn {
+    padding: 10px;
+    background: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s; 
+}
+
+.quantity-btn:hover {
+    background: #388E3C; 
+    transform: scale(1.05); 
+}
+
+.quantity {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 5px; 
+    text-align: center; 
+    font-size: 16px; 
+    width: 40px; 
+}
+
+/* Bottom Menu */
+.menu-botones {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px; 
+    margin-top: 15px; 
+}
+
+.menu-botones button {
+    padding: 10px 0; 
+    border: none; 
+    border-radius: 5px; 
+    background: linear-gradient(90deg, #2196F3, #1976D2); 
+    color: white; /* Text color */
+    font-size: 14px; 
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s, transform 0.2s; 
+}
+
+.menu-botones button:hover {
+    background: #1565C0; /* Darker blue on hover */
+    transform: scale(1.05); 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Stack columns on small screens */
+    }
+    .productos {
+        grid-template-columns: 1fr; /* Stack categories on small screens */
+    }
+}
