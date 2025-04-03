@@ -1,14 +1,14 @@
-/* Importar fuente moderna */
+/* Import modern font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-/* Reset básico */
+/* Basic Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilos generales */
+/* General Styless */
 body {
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #e3efff, #f8f9fc);
@@ -18,7 +18,7 @@ body {
   height: 100vh;
 }
 
-/* Contenedor principal */
+/* Main Container */
 .user-selection-container {
   width: 90%;
   max-width: 600px;
@@ -30,13 +30,13 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Animación de entrada */
-@keyframes fadeIn {
+/* Entrance Animation */
+  @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Estilo mejorado del título */
+/* Enhanced Title Style */
 .screen-title {
   font-size: 24px;
   font-weight: 600;
@@ -54,7 +54,7 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Línea decorativa en el lado izquierdo */
+/* Decorative Line on the Left Side */
 .screen-title::before {
   content: "";
   width: 5px;
@@ -67,21 +67,21 @@ body {
   border-bottom-left-radius: 10px;
 }
 
-/* Ícono sutil antes del texto */
+/* Subtle Icon Before the Text */
 .screen-title::after {
   content: "🔹";
   font-size: 18px;
   color: #3498db;
 }
 
-/* Contenedor de usuarios */
+/* User Container */
 .user-buttons-container {
   display: flex;
   justify-content: center;
   gap: 25px;
 }
 
-/* Botón de usuario */
+/* User Button */
 .user-button {
   background: #fff;
   border: none;
@@ -100,7 +100,7 @@ body {
   overflow: hidden;
 }
 
-/* Sombra y efecto 3D */
+/* Shadow and 3D Effect */
 .user-button::after {
   content: "";
   position: absolute;
@@ -114,7 +114,7 @@ body {
   transition: opacity 0.3s;
 }
 
-/* Efecto hover */
+/* Hover Effect */
 .user-button:hover {
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
@@ -124,7 +124,7 @@ body {
   opacity: 1;
 }
 
-/* Imagen del usuario */
+/* User Image */
 .user-button img {
   width: 90px;
   height: 90px;
@@ -133,12 +133,12 @@ body {
   transition: transform 0.3s;
 }
 
-/* Efecto hover en la imagen */
+/* Hover Effect on Image */
 .user-button:hover img {
   transform: scale(1.1) rotate(3deg);
 }
 
-/* Nombre del usuario */
+/* User Name */
 .user-button span {
   font-size: 18px;
   font-weight: 600;
@@ -146,7 +146,7 @@ body {
   transition: color 0.3s;
 }
 
-/* Cambio de color en hover */
+/* Color Change on Hover */
 .user-button:hover span {
   color: #1a5ddf;
 }
