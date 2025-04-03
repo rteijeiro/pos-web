@@ -2,10 +2,11 @@
 
 include('db.php');
 
-function getUsers($pdo) {
+function getUsers($pdo)
+{
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM users"); 
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE rol='waiter'");
         $stmt->execute();
 
         // Get all results as an associative array
@@ -16,7 +17,8 @@ function getUsers($pdo) {
     }
 }
 
-function getCategory($pdo) {
+function getCategory($pdo)
+{
     try {
         // We make a query to obtain all the data
         $stmt = $pdo->prepare("SELECT * FROM category");
@@ -29,10 +31,11 @@ function getCategory($pdo) {
         return [];
     }
 }
-function getProduct($pdo) {
+function getProduct($pdo)
+{
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM products"); 
+        $stmt = $pdo->prepare("SELECT * FROM products");
         $stmt->execute();
 
         // Get all results as an associative array
@@ -44,7 +47,8 @@ function getProduct($pdo) {
 }
 
 
-function getProductsByCategory($pdo, $categoryId) {
+function getProductsByCategory($pdo, $categoryId)
+{
     try {
         $stmt = $pdo->prepare("SELECT name, price FROM products WHERE category_id = ?");
         $stmt->execute([$categoryId]);
