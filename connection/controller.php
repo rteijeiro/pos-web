@@ -19,7 +19,7 @@ function getUsers($pdo) {
 function getCategory($pdo) {
     try {
         // We make a query to obtain all the data
-        $stmt = $pdo->prepare("SELECT * FROM categorias");
+        $stmt = $pdo->prepare("SELECT * FROM category");
         $stmt->execute();
 
         // Get all results as an associative array

@@ -12,9 +12,9 @@ async function loadProducts(categoryId) {
             div.className = "item";
             div.innerHTML = `
                 <div>${item.name}</div>
-                <div>${item.precio.toFixed(2)} €</div>
+                <div>${item.price.toFixed(2)} €</div>
             `;
-            div.onclick = () => addToOrder(item.name, item.precio);
+            div.onclick = () => addToOrder(item.name, item.price);
             productsContainer.appendChild(div);
         });
 
@@ -24,7 +24,7 @@ async function loadProducts(categoryId) {
     }
 }
 
-function addToOrder(name, precio) {
+function addToOrder(name, price) {
     const orderList = document.getElementById("order-list");
     let itemExistente = Array.from(orderList.children).find(item =>
         item.querySelector(".order-name").textContent === name
@@ -35,14 +35,14 @@ function addToOrder(name, precio) {
         const total = itemExistente.querySelector(".order-total");
         const nuevaCantidad = parseInt(cantidad.textContent) + 1;
         cantidad.textContent = nuevaCantidad;
-        total.textContent = (nuevaCantidad * precio).toFixed(2) + " €";
+        total.textContent = (nuevaCantidad * price).toFixed(2) + " €";
     } else {
         const div = document.createElement("div");
         div.className = "order-item";
         div.innerHTML = `
             <span class="order-quantity">1</span>
             <span class="order-name">${name}</span>
-            <span class="order-total">${precio.toFixed(2)} €</span>
+            <span class="order-total">${price.toFixed(2)} €</span>
             <button class="remove-btn" onclick="removeOrderItem(this)">X</button>
         `;
         orderList.appendChild(div);
