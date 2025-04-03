@@ -53,7 +53,7 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
             </div>
         </div>
     </div>
-    <script src="tables.js"></script>
+    <script src="js/tables.js"></script>
 </body>
 </html>
 
