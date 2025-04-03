@@ -2,7 +2,7 @@
 include 'connection/controller.php';
 include 'connection/db.php';
 
-$usuarios = getUsers($pdo);
+$users = getUsers($pdo);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,10 +17,10 @@ $usuarios = getUsers($pdo);
     <h1 class="screen-title">Seleccionar Usuario</h1>
     
     <div class="user-buttons-container">
-    <?php foreach ($usuarios as $usuario): ?>
-        <button class="user-button" onclick="window.location.href='tables.php?usuario=<?php echo urlencode($usuario['nombre']); ?>';">
-          <img src="images/app/hd-man.png" alt="<?php echo htmlspecialchars($usuario['nombre']); ?>">
-          <span><?php echo htmlspecialchars($usuario['nombre']); ?></span>
+    <?php foreach ($users as $users): ?>
+        <button class="user-button" onclick="window.location.href='tables.php?users=<?php echo urlencode($users['name']); ?>';">
+        <img src="images/app/<?php echo htmlspecialchars($users['img']); ?>" alt="<?php echo htmlspecialchars($users['name']); ?>">
+          <span><?php echo htmlspecialchars($users['name']); ?></span>
         </button>
     <?php endforeach; ?>
     </div>

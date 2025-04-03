@@ -1,20 +1,20 @@
 <?php
 // Get the username from the URL parameter, or set it as 'desconocido' if not provided
-$usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'desconocido';
+$users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido';
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>TPV: <?php echo $usuario; ?></title>
+    <title>TPV: <?php echo $users; ?></title>
     <link rel="stylesheet" href="css/tables.css">
 </head>
 <body>
 
     <!-- Navigation bar with username -->
     <div class="navbar">
-        <h1>TPV: <?php echo $usuario; ?></h1>
+        <h1>TPV: <?php echo $users; ?></h1>
         <p>Select a table</p>
     </div>
 
@@ -34,7 +34,7 @@ $usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'desco
     <!-- Modal -->
     <div class="modal" id="mesaModal">
         <div class="modal-content">
-            <h2>TPV: <?php echo $usuario; ?></h2>
+            <h2>TPV: <?php echo $users; ?></h2>
             <p>Número de comensales</p>
             <input type="text" id="comensalesInput" class="input-display" readonly>
             <div class="keypad">
