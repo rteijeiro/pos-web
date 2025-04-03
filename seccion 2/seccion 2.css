@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* General Styless */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #eef1f7;
@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 
-/* Contenedor principal */
+/* Main Container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -18,7 +18,7 @@ body {
     max-width: 1200px;
 }
 
-/* Botón estándar */
+/* Standard Button */
 .button {
     display: flex;
     flex-direction: column;
@@ -45,19 +45,19 @@ body {
     color: #444;
 }
 
-/* Efecto hover */
+/* Hover Effect */
 .button:hover {
     transform: scale(1.05);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Botón grande */
+/* Large Button */
 .button.large {
     grid-column: span 3;
     padding: 25px;
 }
 
-/* Botón de administración */
+/* Admin Button */
 .button.admin {
     background-color: #ff4d4d;
     color: white;
@@ -67,7 +67,7 @@ body {
     background-color: #e60000;
 }
 
-/* Diseño responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
