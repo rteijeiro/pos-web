@@ -2,18 +2,18 @@
 include 'connection/controller.php';
 include 'connection/db.php';
 
-$usuarios = getUsers($pdo);
+$users = getUsers($pdo);
 
 
 // Validate admin access when the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
     $passwordIngresada = $_POST['admin_password'];
 
-    $stmt = $pdo->prepare("SELECT Clave FROM usuarios WHERE Nombre = 'admin' LIMIT 1");
+    $stmt = $pdo->prepare("SELECT password FROM users WHERE name = 'admin' LIMIT 1");
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row && $passwordIngresada === $row['Clave']) {
+    if ($row && $passwordIngresada === $row['password']) {
         header("Location: admin.php");
         exit();
     } else {
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
         }
 
         // Close popup when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const popup = document.getElementById('admin-popup');
             const adminIcon = document.getElementById('admin-icon');
 
@@ -46,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
         });
     </script>
 </head>
+
 <body>
     <!-- NAVBAR -->
     <div class="navbar">
@@ -56,19 +58,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
                 <label>Username: <strong>admin</strong></label><br>
                 <input type="password" name="admin_password" placeholder="Password" required>
                 <button type="submit">Confirm</button>
-                <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
+                <?php if (!empty($error))
+                    echo "<div class='error'>$error</div>"; ?>
             </form>
         </div>
     </div>
 
     <!-- USERS -->
     <div class="user-container">
-    <?php foreach ($usuarios as $usuario): ?>
-        <a href="tables.php?user=<?php echo urlencode($usuario['Nombre']); ?>" class="user-box">
-            <img src="../img/<?php echo htmlspecialchars($usuario['Img']); ?>" alt="<?php echo htmlspecialchars($usuario['Nombre']); ?>">
-            <div class="user-name"><?php echo htmlspecialchars($usuario['Nombre']); ?></div>
-        </a>
-    <?php endforeach; ?>
-</div>
+        <?php foreach ($users as $users): ?>
+            <a href="tables.php?user=<?php echo urlencode($users['name']); ?>" class="user-box">
+                <img src="images/app/<?php echo htmlspecialchars($users['img']); ?>"
+                    alt="<?php echo htmlspecialchars($users['name']); ?>">
+                <div class="user-name"><?php echo htmlspecialchars($users['name']); ?></div>
+            </a>
+        <?php endforeach; ?>
+    </div>
 </body>
+
 </html>
