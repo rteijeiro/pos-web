@@ -77,4 +77,23 @@ if (isset($_GET['action'])) {
         exit;
     }
 }
+//function to save payments
+function savePayments($pdo, $id, $date, $total)
+{
+    try {
+        $sql = "INSERT INTO payments (id, date, total) VALUES (:id, :date, :total)";
+        $stmt = $pdo->prepare($sql);
+
+        //assign values to placeholders
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':total', $total, PDO::PARAM_STR);
+
+        //run the query
+        return $stmt->execute();
+        //die function stops execution and displays error message
+    } catch (PDOException $e) {
+        die("Error al guardar el pago: " . $e->getMessage());
+    }
+}
 
