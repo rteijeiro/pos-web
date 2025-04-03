@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row && $passwordIngresada === $row['password']) {
+    if ($row && $passwordIngresada === $row['Clave']) {
         header("Location: admin.php");
         exit();
     } else {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/seccionUno.css">
     <script>
         // Toggle the admin login popup visibility
         function toggleAdminPopup() {
@@ -63,17 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_password'])) {
             </form>
         </div>
     </div>
-
-    <!-- USERS -->
-    <div class="user-container">
-        <?php foreach ($users as $users): ?>
-            <a href="tables.php?user=<?php echo urlencode($users['name']); ?>" class="user-box">
-                <img src="images/app/<?php echo htmlspecialchars($users['img']); ?>"
-                    alt="<?php echo htmlspecialchars($users['name']); ?>">
-                <div class="user-name"><?php echo htmlspecialchars($users['name']); ?></div>
-            </a>
-        <?php endforeach; ?>
-    </div>
+    <div class="user-selection-container">
+        <h1 class="screen-title">Select User</h1>
+        <!-- USERS -->
+        <div class="user-buttons-container">
+            <?php foreach ($users as $users): ?>
+                <button class="user-button"
+                    onclick="window.location.href='tables.php?users=<?php echo urlencode($users['name']); ?>';">
+                    <img src="images/app/<?php echo htmlspecialchars($users['img']); ?>"
+                        alt="<?php echo htmlspecialchars($users['name']); ?>">
+                    <span><?php echo htmlspecialchars($users['name']); ?></span>
+                </button>
+            <?php endforeach; ?>
+            <script src="../js/seccion 1.js"></script>
+        </div>
 </body>
 
 </html>
