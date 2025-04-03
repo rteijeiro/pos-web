@@ -1,45 +1,44 @@
 <?php
-// Archivo: get_users.php
 
-include('db.php'); // Asegúrate de incluir el archivo de conexión
+include('db.php');
 
-function obtenerUsuarios($pdo) {
+function getUsers($pdo) {
     try {
-        // Hacemos una consulta para obtener todos los usuarios
-        $stmt = $pdo->prepare("SELECT * FROM usuarios"); // Cambia 'usuarios' por el nombre de tu tabla
+        // We make a query to obtain all the data
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE rol='waiter'"); 
         $stmt->execute();
 
-        // Obtener todos los resultados como un array asociativo
+        // Get all results as an associative array
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Error al obtener los usuarios: " . $e->getMessage();
+        echo "Error retrieving users: " . $e->getMessage();
         return [];
     }
 }
 
-function obtenerCategorias($pdo) {
+function getCategory($pdo) {
     try {
-        // Hacemos una consulta para obtener todas las categorias
-        $stmt = $pdo->prepare("SELECT * FROM categorias");
+        // We make a query to obtain all the data
+        $stmt = $pdo->prepare("SELECT * FROM categories");
         $stmt->execute();
 
-        // Obtener todos los resultados como un array asociativo
+        // Get all results as an associative array
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Error al obtener los usuarios: " . $e->getMessage();
+        echo "Error retrieving users: " . $e->getMessage();
         return [];
     }
 }
-function obtenerProductos($pdo) {
+function getProduct($pdo) {
     try {
-        // Hacemos una consulta para obtener todos los productos
-        $stmt = $pdo->prepare("SELECT * FROM productos"); 
+        // We make a query to obtain all the data
+        $stmt = $pdo->prepare("SELECT * FROM products"); 
         $stmt->execute();
 
-        // Obtener todos los resultados como un array asociativo
+        // Get all results as an associative array
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Error al obtener los usuarios: " . $e->getMessage();
+        echo "Error retrieving users: " . $e->getMessage();
         return [];
     }
 }
