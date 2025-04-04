@@ -20,7 +20,7 @@ function confirmMesa() {
         alert('Introduce un número de comensales');
         return;
     }
-    const usuario = new URLSearchParams(window.location.search).get('user');
+    const usuario = new URLSearchParams(window.location.search).get('users');
     window.location.href = `restaurant.php?mesa=${selectedMesa}&user=${encodeURIComponent(usuario)}&comensales=${comensales}`;
 }
 

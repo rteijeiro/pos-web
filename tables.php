@@ -1,6 +1,7 @@
 <?php
 // Get the username from the URL parameter, or set it as 'desconocido' if not provided
 $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido';
+
 ?>
 
 <!DOCTYPE html>

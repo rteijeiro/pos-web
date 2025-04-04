@@ -12,9 +12,9 @@ async function loadProducts(categoryId) {
             div.className = "item";
             div.innerHTML = `
                 <div>${item.name}</div>
-                <div>${item.price.toFixed(2)} €</div>
+                <div>${parseFloat(item.price).toFixed(2)} €</div>
             `;
-            div.onclick = () => addToOrder(item.name, item.price);
+            div.onclick = () => addToOrder(item.name, parseFloat(item.price));
             productsContainer.appendChild(div);
         });
 
@@ -25,41 +25,52 @@ async function loadProducts(categoryId) {
 }
 
 function addToOrder(name, price) {
-    const orderList = document.getElementById("order-list");
-    let itemExistente = Array.from(orderList.children).find(item =>
-        item.querySelector(".order-name").textContent === name
+    const tbody = document.getElementById("order-table-body");
+    let existingRow = Array.from(tbody.rows).find(row =>
+        row.cells[1].textContent === name
     );
 
-    if (itemExistente) {
-        const cantidad = itemExistente.querySelector(".order-quantity");
-        const total = itemExistente.querySelector(".order-total");
-        const nuevaCantidad = parseInt(cantidad.textContent) + 1;
-        cantidad.textContent = nuevaCantidad;
-        total.textContent = (nuevaCantidad * price).toFixed(2) + " €";
+    if (existingRow) {
+        let qtyCell = existingRow.cells[0];
+        let totalCell = existingRow.cells[3];
+        let newQty = parseInt(qtyCell.textContent) + 1;
+        qtyCell.textContent = newQty;
+        totalCell.textContent = (newQty * price).toFixed(2) + " €";
     } else {
-        const div = document.createElement("div");
-        div.className = "order-item";
-        div.innerHTML = `
-            <span class="order-quantity">1</span>
-            <span class="order-name">${name}</span>
-            <span class="order-total">${price.toFixed(2)} €</span>
-            <button class="remove-btn" onclick="removeOrderItem(this)">X</button>
+        let row = tbody.insertRow();
+        row.innerHTML = `
+            <td>1</td>
+            <td>${name}</td>
+            <td>${price.toFixed(2)} €</td>
+            <td>${price.toFixed(2)} €</td>
+            <td><button class="remove-btn" onclick="removeOrderRow(this)">X</button></td>
         `;
-        orderList.appendChild(div);
     }
+
+    calculateTotal();
+}
+
+function removeOrderRow(button) {
+    const row = button.closest('tr');
+    row.remove();
     calculateTotal();
 }
 
 function calculateTotal() {
-    const totales = Array.from(document.querySelectorAll(".order-total"))
-        .reduce((sum, item) => sum + parseFloat(item.textContent.replace(' €', '')), 0);
-    document.getElementById("total-amount").textContent =
-        totales.toFixed(2) + " €";
+    const rows = document.querySelectorAll("#order-table-body tr");
+    let total = 0;
+    rows.forEach(row => {
+        const cell = row.cells[3];
+        if (cell) {
+            total += parseFloat(cell.textContent.replace(" €", ""));
+        }
+    });
+    document.getElementById("total-amount").textContent = total.toFixed(2) + " €";
 }
 
 
 function removeOrderItem(button) {
     const item = button.closest('.order-item');
     item.remove();
-    calculateTotal(); 
+    calculateTotal();
 }
