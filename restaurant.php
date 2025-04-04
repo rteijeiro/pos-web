@@ -5,7 +5,7 @@ $categories = getCategory($pdo);
 
 $mesa = isset($_GET['mesa']) ? htmlspecialchars($_GET['mesa']) : 'Mesa ?';
 $comensales = isset($_GET['comensales']) ? htmlspecialchars($_GET['comensales']) : '?';
-$usuario = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'Usuario';
+$usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
 ?>
 <!DOCTYPE html>
 <html lang="es">
