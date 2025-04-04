@@ -30,7 +30,7 @@ $users = getUsers($pdo);
                     <span><?php echo htmlspecialchars($users['name']); ?></span>
                 </button>
             <?php endforeach; ?>
-            <script src="../js/seccionUno.js"></script>
+            <script src="js/seccionUno.js"></script>
         </div>
 </body>
 
