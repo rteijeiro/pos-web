@@ -21,9 +21,7 @@ function confirmMesa() {
     return;
   }
   const usuario = new URLSearchParams(window.location.search).get("users");
-  window.location.href = `restaurant.php?mesa=${selectedMesa}&user=${encodeURIComponent(
-    usuario
-  )}&comensales=${comensales}`;
+  window.location.href = `restaurant.php?mesa=${selectedMesa}&user=${encodeURIComponent(usuario)}&comensales=${comensales}`;
 }
 
 // Close modal when clicking outside
