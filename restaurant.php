@@ -56,7 +56,8 @@ include 'connection/db.php';
             <?php foreach ($categories as $category): ?>
                 <div class="category" 
                      onclick="loadProducts(<?= $category['id'] ?>)">
-                    <img src="<?= $category['img'] ?>" alt="<?= $category['name'] ?>">
+                    <img src="carta seccion 3/<?php echo htmlspecialchars($category['img']); ?>"
+                        alt="<?php echo htmlspecialchars($category['name']); ?>">
                     <span><?= $category['name'] ?></span>
                 </div>
             <?php endforeach; ?>
