@@ -192,15 +192,18 @@ body {
 }
 
 /* Bottom menu buttons */
-.menu-botones {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+.menu-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 15px;
 }
 
-.menu-botones button {
-  padding: 10px 0;
+.menu-buttons button {
+  flex: 1 0 auto;
+  padding: 10px 8px;
+  white-space: nowrap;
   border: none;
   border-radius: 5px;
   background: linear-gradient(90deg, #2196F3, #1976D2);
@@ -211,7 +214,7 @@ body {
   transition: background 0.3s, transform 0.2s;
 }
 
-.menu-botones button:hover {
+.menu-buttons button:hover {
   background: #1565C0;
   transform: scale(1.05);
 }

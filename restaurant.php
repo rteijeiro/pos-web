@@ -85,7 +85,7 @@ $usuario = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'Usuario';
 </div>
 
 <!-- Bottom menu buttons -->
-<div class="menu-botones">
+<div class="menu-buttons">
     <button>Print</button>
     <button>Cash Payment</button>
     <button>Delete Line</button>
