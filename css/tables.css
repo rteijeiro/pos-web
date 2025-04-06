@@ -50,9 +50,21 @@ body {
     transition: transform 0.2s, background-color 0.2s;
 }
 
+/* Hover para mesas disponibles */
 .mesa-box:hover {
     transform: scale(1.05);
     background-color: #45a049;
+}
+
+/* Regla para ocupadas (debe estar DESPUÉS de hover) */
+.mesa-link.ocupada .mesa-box {
+    background-color: #ff0000; /* Fondo rojo */
+}
+
+/* OPCIONAL: Anula hover en ocupadas */
+.mesa-link.ocupada .mesa-box:hover {
+    transform: none;
+    background-color: #ff0000; 
 }
 
 /* MODAL */

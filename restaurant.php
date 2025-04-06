@@ -16,7 +16,9 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
     <title>TPV Restaurante</title>
     <link rel="stylesheet" href="css/restaurant.css" />
 </head>
-
+<script>
+    let selectedMesa = "<?= $mesa ?>";
+</script>
 <body>
     <div class="container">
         <!-- Left panel - orders -->
@@ -127,36 +129,35 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
         }
     </script>
     <script>
-        document.getElementById("savePaymentBtn").addEventListener("click", function () {
-            const id = 1;
-            const date = new Date().toISOString().split("T")[0];
+       document.getElementById("savePaymentBtn").addEventListener("click", function () {
+  const id = 1;
+  const date = new Date().toISOString().split("T")[0];
+  const total = parseFloat(document.getElementById("total-amount").textContent.replace("€", "").trim());
 
-            //date
-            const total = parseFloat(document.getElementById("total-amount").textContent.replace("€", "").trim());
+  if (isNaN(total) || total <= 0) {
+    alert("El total no es válido. Asegúrate de que haya productos en el pedido.");
+    return;
+  }
 
-            if (isNaN(total) || total <= 0) {
-                alert("El total no es válido. Asegúrate de que haya productos en el pedido.");
-                return;
-            }
-
-            //this is fetch
-            fetch("savePayment.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id, date, total }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    //reload the page to reflect changes
-                    window.location.reload();
-                })
-                .catch(error => {
-                    alert("Error al procesar el pago: " + error);
-                });
-        });
-
-
+  fetch("savePayment.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, date, total }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      alert(data.message);
+       
+      // Delete both: the order and the busy status
+      localStorage.removeItem('mesa_' + selectedMesa);
+      localStorage.removeItem('mesa_' + selectedMesa + '_ocupada'); 
+      
+      window.location.reload();
+  })
+  .catch(error => {
+      alert("Error al procesar el pago: " + error);
+  });
+});
     </script>
 </body>
 
