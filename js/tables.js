@@ -31,6 +31,15 @@ function confirmMesa() {
     window.location.href = `restaurant.php?mesa=${selectedMesa}&user=${encodeURIComponent(usuario)}&comensales=${comensales}`;
 }
 
+// Close modal when clicking outside
+window.addEventListener("click", function (event) {
+    const modal = document.getElementById("mesaModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+      clearInput();
+    }
+  });
+
 // Event listeners
 window.addEventListener("click", function(event) {
     const modal = document.getElementById("mesaModal");
