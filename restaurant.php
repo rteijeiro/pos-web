@@ -56,18 +56,18 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
                     <button onclick="addToCalc('7')">7</button>
                     <button onclick="addToCalc('8')">8</button>
                     <button onclick="addToCalc('9')">9</button>
-                    <button onclick="addToCalc('+')">DTO%</button>
+                    <button onclick="setDiscount('%')">DTO%</button>
                     <button onclick="addToCalc('4')">4</button>
                     <button onclick="addToCalc('5')">5</button>
                     <button onclick="addToCalc('6')">6</button>
-                    <button onclick="addToCalc('-')">DTO €</button>
+                    <button onclick="setDiscount('€')">DTO €</button>
                     <button onclick="addToCalc('1')">1</button>
                     <button onclick="addToCalc('2')">2</button>
                     <button onclick="addToCalc('3')">3</button>
-                    <button onclick="addToCalc('*')">CAN</button>
+                    <button onclick="clearCalc()">CLR</button>
                     <button onclick="addToCalc('0')">0</button>
                     <button onclick="addToCalc('.')">.</button>
-                    <button onclick="clearCalc()">CLR</button>
+                   
                     <button onclick="addToCalc('/')">PREC</button>
                     <button onclick="applyToTotal()" class="apply-btn">Apply</button>
                 </div>
@@ -107,27 +107,6 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
 
     <script src="js/restaurant.js"></script>
     <script src="js/calculator.js"></script>
-    <script>
-        let calcInput = "";
-        function addToCalc(val) {
-            calcInput += val;
-            document.getElementById("calc-display").value = calcInput;
-        }
-        function clearCalc() {
-            calcInput = "";
-            document.getElementById("calc-display").value = "";
-        }
-        function applyToTotal() {
-            try {
-                const result = eval(calcInput);
-                alert("Apply: " + result);
-                clearCalc();
-            } catch {
-                alert("Invalid operation");
-                clearCalc();
-            }
-        }
-    </script>
     <script>
        document.getElementById("savePaymentBtn").addEventListener("click", function () {
   const id = 1;
