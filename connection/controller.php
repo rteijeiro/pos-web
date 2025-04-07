@@ -32,6 +32,32 @@ function getAllUsers($pdo)
     }
 }
 
+// show users
+if (isset($_GET['action']) && $_GET['action'] === 'getAllUser') {
+    $stmt = $pdo->prepare("SELECT name, img FROM users WHERE name != 'admin'");
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($users);
+    exit;
+}
+
+//delete user by name
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'deleteUser') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $name = $input['name'] ?? '';
+
+    if (!empty($name)) {
+        $stmt = $pdo->prepare("DELETE FROM users WHERE name = ?");
+        $success = $stmt->execute([$name]);
+        echo json_encode(['success' => $success]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No user specified']);
+    }
+    exit;
+}
+
+
+
 function getCategory($pdo)
 {
     try {
@@ -61,6 +87,7 @@ function getProduct($pdo)
     }
 }
 
+//Show products
 if (isset($_GET['action']) && $_GET['action'] === 'getProducts') {
     $stmt = $pdo->query("
         SELECT 
@@ -74,6 +101,41 @@ if (isset($_GET['action']) && $_GET['action'] === 'getProducts') {
     echo json_encode($products);
     exit;
 }
+
+//Delete products
+if (isset($_GET['action']) && $_GET['action'] === 'deleteProduct' && isset($_GET['name'])) {
+    $name = $_GET['name'];
+    $stmt = $pdo->prepare("DELETE FROM products WHERE name = ?");
+    $success = $stmt->execute([$name]);
+
+    echo json_encode(['success' => $success]);
+    exit;
+}
+
+// Add product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addProduct') {
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $category_id = $_POST['category_id'];
+
+    $imgName = basename($_FILES['img']['name']);
+    $uploadDir = '../carta_seccion_3/';
+    $uploadPath = $uploadDir . $imgName;
+
+    if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO products (name, price, category_id, img) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$name, $price, $category_id, $imgName]);
+            echo json_encode(['success' => true]);
+        } catch (PDOException $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Image upload failed']);
+    }
+    exit;
+}
+
 
 
 function getProductsByCategory($pdo, $categoryId)

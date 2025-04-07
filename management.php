@@ -31,7 +31,7 @@ $adminName = $admin ? $admin['name'] : 'Admin';
         <div class="dropdown">
             <button class="dropbtn" onclick="toggleDropdown('user-dropdown')">Users</button>
             <div class="dropdown-content" id="user-dropdown">
-                <a href="#">Show Users</a>
+            <a href="#" onclick="showUsers()">Show Users</a>
                 <a href="#">Register User</a>
             </div>
         </div>
