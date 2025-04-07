@@ -9,7 +9,6 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,6 +17,7 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
 </head>
 <script>
     let selectedMesa = "<?= $mesa ?>";
+    let calcInput = "";
 </script>
 <body>
     <div class="container">
@@ -37,12 +37,10 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
                         <th>Product</th>
                         <th>Price</th>
                         <th>Total</th>
-                        <th></th> <!-- For delete button -->
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody id="order-table-body">
-                    <!-- Rows inserted via JS -->
-                </tbody>
+                <tbody id="order-table-body"></tbody>
             </table>
 
             <div class="total">
@@ -67,7 +65,6 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
                     <button onclick="clearCalc()">CLR</button>
                     <button onclick="addToCalc('0')">0</button>
                     <button onclick="addToCalc('.')">.</button>
-                   
                     <button onclick="addToCalc('/')">PREC</button>
                     <button onclick="applyToTotal()" class="apply-btn">Apply</button>
                 </div>
@@ -79,8 +76,7 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
             <div class="categories">
                 <?php foreach ($categories as $category): ?>
                     <div class="category" onclick="loadProducts(<?= $category['id'] ?>)">
-                        <img src="carta_seccion_3/<?php echo htmlspecialchars($category['img']); ?>"
-                            alt="<?php echo htmlspecialchars($category['name']); ?>">
+                        <img src="carta_seccion_3/<?php echo htmlspecialchars($category['img']); ?>" alt="<?php echo htmlspecialchars($category['name']); ?>">
                         <span><?= $category['name'] ?></span>
                     </div>
                 <?php endforeach; ?>
@@ -108,103 +104,85 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
     <script src="js/restaurant.js"></script>
     <script src="js/calculator.js"></script>
     <script>
- // Function to get the total updated from the page
-function getTotalPrice() {
-  return parseFloat(
-    document.getElementById("total-amount").textContent.replace("€", "").trim()
-  );
-}
+        // Add numbers or symbols to calculator
+        function addToCalc(val) {
+            calcInput += val;
+            document.getElementById("calc-display").value = calcInput;
+        }
 
+        // Prompt discount input
+        function setDiscount(type) {
+            const input = prompt(`Enter discount in ${type}`);
+            if (!input || isNaN(input)) {
+                alert("Invalid input");
+                return;
+            }
+            calcInput = type === '%' ? input + '%' : input + '€';
+            document.getElementById("calc-display").value = calcInput;
+        }
 
-function addToCalc(val) {
-  if (val === '%' || val === '€') return;
-  calcInput += val;
-  document.getElementById("calc-display").value = calcInput;
-}
+        // Clear calculator
+        function clearCalc() {
+            calcInput = "";
+            document.getElementById("calc-display").value = "";
+        }
 
-function setDiscount(type) {
-  if (type === '%') {
-    calcInput += '%';
-  } else if (type === '€') {
-    calcInput += '€';
-  }
-  document.getElementById("calc-display").value = calcInput;
-}
+        // Apply discount or amount
+        function applyToTotal() {
+            try {
+                let totalPrice = parseFloat(document.getElementById("total-amount").textContent.replace("€", "").trim());
+                let newTotal = totalPrice;
 
-function clearCalc() {
-  calcInput = "";
-  document.getElementById("calc-display").value = "";
-}
+                if (calcInput.includes('%')) {
+                    const discountPercent = parseFloat(calcInput.replace('%', ''));
+                    if (isNaN(discountPercent)) throw new Error("Invalid % discount");
+                    newTotal -= totalPrice * (discountPercent / 100);
+                } else if (calcInput.includes('€')) {
+                    const discountEuro = parseFloat(calcInput.replace('€', ''));
+                    if (isNaN(discountEuro)) throw new Error("Invalid € discount");
+                    newTotal -= discountEuro;
+                } else {
+                    const value = parseFloat(calcInput);
+                    if (isNaN(value)) throw new Error("Invalid direct input");
+                    newTotal = value;
+                }
 
-function applyToTotal() {
-  try {
-    let totalPrice = getTotalPrice(); // Get the updated total price from the page
-    let newTotal = totalPrice;
+                if (newTotal < 0) newTotal = 0;
+                document.getElementById("total-amount").textContent = newTotal.toFixed(2) + " €";
+                clearCalc();
+            } catch {
+                alert("Operación inválida");
+                clearCalc();
+            }
+        }
 
-    // Apply percentage discount
-    if (calcInput.includes('%')) {
-      const discountPercent = parseFloat(calcInput.replace('%', '')) / 100;
-      newTotal = totalPrice - totalPrice * discountPercent;
-    } 
-    // Apply fixed discount in euros
-    else if (calcInput.includes('€')) {
-      const discountEuro = parseFloat(calcInput.replace('€', ''));
-      newTotal = totalPrice - discountEuro;
-    } 
-    // If it is not a percentage or euro, we treat it as a direct price
-    else {
-      newTotal = parseFloat(calcInput);
-      if (isNaN(newTotal)) throw new Error("Invalid number");
-    }
+        // Save payment
+        document.getElementById("savePaymentBtn").addEventListener("click", function () {
+            const id = 1;
+            const date = new Date().toISOString().split("T")[0];
+            const total = parseFloat(document.getElementById("total-amount").textContent.replace("€", "").trim());
 
-    // Validate that the new total is a valid number and is not negative
-    if (isNaN(newTotal)) throw new Error("Invalid operation");
-    if (newTotal < 0) newTotal = 0;  // Do not allow negative values
+            if (isNaN(total) || total <= 0) {
+                alert("El total no es válido. Asegúrate de que haya productos en el pedido.");
+                return;
+            }
 
-    // Update the total on the page
-    document.getElementById("total-amount").textContent = newTotal.toFixed(2) + " €";
-
-    // Clean the calculator
-    clearCalc();
-  } catch (e) {
-    alert("Operación inválida");
-    clearCalc();
-  }
-}
-
-
-    </script>
-    <script>
-       document.getElementById("savePaymentBtn").addEventListener("click", function () {
-  const id = 1;
-  const date = new Date().toISOString().split("T")[0];
-  const total = parseFloat(document.getElementById("total-amount").textContent.replace("€", "").trim());
-
-  if (isNaN(total) || total <= 0) {
-    alert("El total no es válido. Asegúrate de que haya productos en el pedido.");
-    return;
-  }
-
-  fetch("savePayment.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, date, total }),
-  })
-  .then(response => response.json())
-  .then(data => {
-      alert(data.message);
-       
-      // Delete both: the order and the busy status
-      localStorage.removeItem('mesa_' + selectedMesa);
-      localStorage.removeItem('mesa_' + selectedMesa + '_ocupada'); 
-      
-      window.location.reload();
-  })
-  .catch(error => {
-      alert("Error al procesar el pago: " + error);
-  });
-});
+            fetch("savePayment.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, date, total }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                localStorage.removeItem('mesa_' + selectedMesa);
+                localStorage.removeItem('mesa_' + selectedMesa + '_ocupada');
+                window.location.reload();
+            })
+            .catch(error => {
+                alert("Error al procesar el pago: " + error);
+            });
+        });
     </script>
 </body>
-
 </html>
