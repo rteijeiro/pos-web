@@ -1,158 +1,137 @@
-/* Import modern font */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-
-/* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* General Styless */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #e3efff, #f8f9fc);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Main Container */
-.user-selection-container {
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Entrance Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Enhanced Title Style */
-.screen-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  text-align: left;
-  padding: 15px 20px;
-  background: #f4f6f9;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-/* Decorative Line on the Left Side */
-.screen-title::before {
-  content: "";
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-/* Subtle Icon Before the Text */
-.screen-title::after {
-  content: "🔹";
-  font-size: 18px;
-  color: #3498db;
-}
-
-/* User Container */
-.user-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-}
-
-/* User Button */
-.user-button {
-  background: #fff;
-  border: none;
-  border-radius: 15px;
-  padding: 20px;
-  width: 170px;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  outline: none;
-  position: relative;
-  overflow: hidden;
+  height: 100vh;
+  padding-top: 60px;
 }
 
-/* Shadow and 3D Effect */
-.user-button::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.user-selection-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 500px;
+  text-align: center;
+}
+
+.screen-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-button,
+.management-btn {
+  background: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  width: 130px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.user-button:hover,
+.management-btn:hover {
+  transform: translateY(-4px);
+}
+
+.user-button img,
+.management-btn img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.user-button span,
+.management-btn span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Management button position */
+.management-footer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.management-modal {
+  position: fixed;
   top: 0;
   left: 0;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05));
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-/* Hover Effect */
-.user-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+.management-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: center;
 }
 
-.user-button:hover::after {
-  opacity: 1;
+.user-list {
+  margin-top: 20px;
 }
 
-/* User Image */
-.user-button img {
-  width: 90px;
-  height: 90px;
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.user-row:hover {
+  background: #e3e3e3;
+}
+
+.user-row img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin-bottom: 12px;
-  transition: transform 0.3s;
+  object-fit: cover;
 }
 
-/* Hover Effect on Image */
-.user-button:hover img {
-  transform: scale(1.1) rotate(3deg);
+.close-btn {
+  margin-top: 15px;
+  background: #bbb;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-/* User Name */
-.user-button span {
-  font-size: 18px;
-  font-weight: 600;
-  color: #444;
-  transition: color 0.3s;
-}
-
-/* Color Change on Hover */
-.user-button:hover span {
-  color: #1a5ddf;
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }

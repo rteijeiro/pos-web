@@ -17,6 +17,21 @@ function getUsers($pdo)
     }
 }
 
+function getAllUsers($pdo)
+{
+    try {
+        // We make a query to obtain all the data
+        $stmt = $pdo->prepare("SELECT * FROM users");
+        $stmt->execute();
+
+        // Get all results as an associative array
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error al obtener los users: " . $e->getMessage();
+        return [];
+    }
+}
+
 function getCategory($pdo)
 {
     try {
@@ -44,6 +59,20 @@ function getProduct($pdo)
         echo "Error al obtener los users: " . $e->getMessage();
         return [];
     }
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'getProducts') {
+    $stmt = $pdo->query("
+        SELECT 
+            p.name, 
+            p.price, 
+            c.name AS category_name
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+    ");
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($products);
+    exit;
 }
 
 
