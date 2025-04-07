@@ -1,0 +1,103 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 20%;
+    background: #fff;
+    padding: 20px;
+    border-right: 2px solid #ddd;
+}
+
+.main-content {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0e0c0;
+    position: relative;
+}
+
+.mapa {
+    width: 90%;
+    height: 80%;
+    background-color: #e4c090;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.mesa {
+    width: 80px;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.mesa-seleccionada {
+    background-color: #27ae60;
+    color: white;
+}
+
+.mesa-reservada {
+    background-color: #e67e22;
+    color: white;
+}
+
+.barra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.asiento {
+    width: 30px;
+    height: 30px;
+    background-color: #a0522d;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(248, 243, 243);
+    padding: 10px 0;
+    border-top: 2px solid #ddd;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    text-decoration: underline;
+}
