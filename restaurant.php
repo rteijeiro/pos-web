@@ -115,7 +115,6 @@ function getTotalPrice() {
   );
 }
 
-let calcInput = "";
 
 function addToCalc(val) {
   if (val === '%' || val === '€') return;
