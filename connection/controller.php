@@ -78,14 +78,13 @@ if (isset($_GET['action'])) {
     }
 }
 //function to save payments
-function savePayments($pdo, $id, $date, $total)
+function savePayments($pdo, $date, $total)
 {
     try {
-        $sql = "INSERT INTO payments (id, date, total) VALUES (:id, :date, :total)";
+        $sql = "INSERT INTO payments (date, total) VALUES (:date, :total)";
         $stmt = $pdo->prepare($sql);
 
         //assign values to placeholders
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->bindParam(':total', $total, PDO::PARAM_STR);
 

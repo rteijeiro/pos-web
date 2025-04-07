@@ -1,6 +1,7 @@
 <?php
 // Get the username from the URL parameter, or set it as 'desconocido' if not provided
 $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido';
+
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +21,13 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
 
     <!-- Table selection area -->
     <div class="mesas-container">
-        <div class="mesa-link" onclick="openModal(1)">
+        <div class="mesa-link" data-mesa="1" onclick="openModal(1)">
             <div class="mesa-box">Table 1</div>
         </div>
-        <div class="mesa-link" onclick="openModal(2)">
+        <div class="mesa-link" data-mesa="2" onclick="openModal(2)">
             <div class="mesa-box">Table 2</div>
         </div>
-        <div class="mesa-link" onclick="openModal(3)">
+        <div class="mesa-link" data-mesa="3" onclick="openModal(3)">
             <div class="mesa-box">Table 3</div>
         </div>
     </div>
