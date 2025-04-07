@@ -50,7 +50,7 @@ function getProduct($pdo)
 function getProductsByCategory($pdo, $categoryId)
 {
     try {
-        $stmt = $pdo->prepare("SELECT name, price FROM products WHERE category_id = ?");
+        $stmt = $pdo->prepare("SELECT name, price, img FROM products WHERE category_id = ?");
         $stmt->execute([$categoryId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

@@ -16,6 +16,7 @@ async function loadProducts(categoryId) {
             const div = document.createElement("div");
             div.className = "item";
             div.innerHTML = `
+                <img src="carta_seccion_3/${item.img}"/>
                 <div>${item.name}</div>
                 <div>${parseFloat(item.price).toFixed(2)} €</div>
             `;
