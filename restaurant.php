@@ -93,11 +93,12 @@ $usuario = isset($_GET['user']) ? htmlspecialchars($_GET['user']) : 'Usuario';
             <button>Open Drawer</button>
             <button class="red-btn">Cancel Ticket</button>
             <button>Open Tickets</button>
-            <button>Change Table</button>
+            <button onclick="changeTable()">Change Table</button>
             <button>Split Ticket</button>
             <button class="yellow-btn">Payments</button>
             <button>Others</button>
             <button>Log Out</button>
+            <button onclick="window.location.href='tables.php?user=<?php echo $usuario; ?>'">Back</button>
         </div>
     </div>
 
@@ -193,5 +194,45 @@ function applyToTotal() {
             });
         });
     </script>
+    <script>
+    const comensalesJS = "<?= $comensales ?>";
+    const usuarioJS = "<?= $usuario ?>";
+
+
+    
+  function changeTable() {
+    const newMesa = prompt("Introduce el número de la nueva mesa:");
+    if (!newMesa || newMesa === selectedMesa) return;
+
+    // Verificar si ya existe orden en la nueva mesa
+    const newOrderKey = 'mesa_' + newMesa;
+    const existingOrder = localStorage.getItem(newOrderKey);
+    if (existingOrder && !confirm(`¡La mesa ${newMesa} ya tiene un pedido! ¿Sobreescribir?`)) return;
+
+    // Transferir datos al nuevo localStorage
+    const oldMesa = selectedMesa;
+    const oldOrderKey = 'mesa_' + oldMesa;
+    const oldOrder = localStorage.getItem(oldOrderKey);
+
+    if (oldOrder) {
+        localStorage.setItem(newOrderKey, oldOrder);
+        localStorage.removeItem(oldOrderKey);
+    }
+
+    // Actualizar estado de ocupación
+    localStorage.removeItem(`mesa_${oldMesa}_ocupada`);
+    localStorage.setItem(`mesa_${newMesa}_ocupada`, 'true');
+
+    // Actualizar variables y UI
+
+    selectedMesa = newMesa;
+    
+    // Actualizar URL
+    window.history.replaceState({}, '', `?mesa=${newMesa}&comensales=${comensalesJS}&user=${usuarioJS}`);
+
+    // Recargar pedido de la nueva mesa
+    loadSavedOrder();
+}
+</script>
 </body>
 </html>
