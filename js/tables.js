@@ -31,17 +31,8 @@ function confirmMesa() {
     window.location.href = `restaurant.php?mesa=${selectedMesa}&user=${encodeURIComponent(usuario)}&comensales=${comensales}`;
 }
 
-// Close modal when clicking outside
+// Cerrar modal al hacer clic fuera
 window.addEventListener("click", function (event) {
-    const modal = document.getElementById("mesaModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-      clearInput();
-    }
-  });
-
-// Event listeners
-window.addEventListener("click", function(event) {
     const modal = document.getElementById("mesaModal");
     if (event.target === modal) {
         modal.style.display = "none";
@@ -49,6 +40,7 @@ window.addEventListener("click", function(event) {
     }
 });
 
+// Manejar teclas en el modal
 document.addEventListener("keydown", function(event) {
     const modal = document.getElementById("mesaModal");
     const input = document.getElementById("comensalesInput");
@@ -68,21 +60,21 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+// Marcar mesas ocupadas
 document.addEventListener("DOMContentLoaded", () => {
     const mesas = document.querySelectorAll(".mesa-link");
-    
+
     mesas.forEach(mesaEl => {
         const mesaId = mesaEl.getAttribute("data-mesa");
         const isOccupied = localStorage.getItem('mesa_' + mesaId + '_ocupada') === 'true';
 
-        // Update class according to status
         if (isOccupied) {
             mesaEl.classList.add("ocupada");
         } else {
-            mesaEl.classList.remove("ocupada"); // Make sure to remove the class if it is not busy
+            mesaEl.classList.remove("ocupada");
         }
 
-        mesaEl.onclick = function() {
+        mesaEl.onclick = () => {
             if (isOccupied) {
                 const usuario = new URLSearchParams(window.location.search).get("users");
                 window.location.href = `restaurant.php?mesa=${mesaId}&user=${encodeURIComponent(usuario)}&comensales=0`;
