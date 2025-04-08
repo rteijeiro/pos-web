@@ -183,3 +183,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     }
     exit;
 }
+
+//function to insert user
+function addUser($pdo, $name, $rol, $img)
+{
+    try {
+
+        $sql = "INSERT INTO users (name, rol, img) 
+                VALUES (:name, :rol, :img)";
+        // Assign values 
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':rol', $rol, PDO::PARAM_STR);
+        $stmt->bindParam(':img', $img, PDO::PARAM_STR);
+
+        //execute the query
+        $success = $stmt->execute();
+
+        //return the appropriate JSON response
+        if ($success) {
+            return json_encode(['success' => true, 'message' => 'User added successfully']);
+        } else {
+            return json_encode(['success' => false, 'message' => 'Failed to add user']);
+        }
+    } catch (PDOException $e) {
+        error_log("Error al insertar usuario: " . $e->getMessage());
+        return json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+// Add user
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addUser') {
+    $name = $_POST['name'];
+    $rol = $_POST['rol'];
+    //empty password by default
+    $password = '';
+
+    //handle image upload
+    $imgName = basename($_FILES['img']['name']);
+    $uploadDir = '../carta_seccion_3/';
+    $uploadPath = $uploadDir . $imgName;
+
+    if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO users (name, password, rol, img) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$name, $password, $rol, $imgName]);
+
+            echo json_encode(['success' => true]);
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Image upload failed'
+        ]);
+    }
+    exit;
+}

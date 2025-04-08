@@ -190,3 +190,55 @@ function showAddProductForm() {
     }
   });
 }
+
+//add users
+function showAddUserForm() {
+  let html = `
+          <div class="form-wrapper" style="text-align: center;">
+              <h2 style="margin-bottom: 20px;">Add User</h2>
+              <form id="add-user-form" enctype="multipart/form-data" method="POST">
+                  <label>Name:</label><br>
+                  <input type="text" name="name" required><br><br>
+  
+                    
+                  <label>Role:</label><br>
+                  <select name="rol" required>`;
+
+  roles.forEach((role) => {
+    html += `<option value="${role.rol}">${role.rol}</option>`;
+  });
+
+  html += `</select><br><br>
+               <label>Image:</label><br>
+               <input type="file" name="img" accept="image/*" required><br><br>
+               <button type="submit">Add user</button>
+              </form>
+          </div>`;
+
+  document.getElementById("main-section").innerHTML = html;
+
+  //attach event after DOM insertion
+  const form = document.getElementById("add-user-form");
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    try {
+      const response = await fetch("connection/controller.php?action=addUser", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert("User added successfully!");
+        //refresh user list
+        showUsers();
+      } else {
+        alert("Error: " + (result.message || "Something went wrong."));
+      }
+    } catch (err) {
+      alert("Unexpected error: " + err.message);
+    }
+  });
+}
