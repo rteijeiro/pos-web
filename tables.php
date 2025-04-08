@@ -9,15 +9,15 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
     <link rel="stylesheet" href="css/tables.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar visual -->
-        <div class="sidebar">
-            <p>TPV: <?php echo $users ?></p>
-            <h2>Seleccionar Mesa</h2>
-            
-        </div>
+    <div class="user-bar">
+        TPV: <?php echo $users; ?>
+    </div>
 
+    <div class="container">
         <div class="main-content">
+            <div class="titulo-central">
+                <h2>Seleccionar Mesa</h2>
+            </div>
             <div class="mapa">
                 <?php for ($i = 1; $i <= 9; $i++): ?>
                     <div class="mesa-link" data-mesa="<?= $i ?>">

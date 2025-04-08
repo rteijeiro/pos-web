@@ -1,39 +1,51 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
 }
 
+/* USER BAR arriba izquierda */
+.user-bar {
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Container de todo */
 .container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 50px);
 }
 
-.sidebar {
-    width: 20%;
-    background: #fff;
-    padding: 20px;
-    border-right: 2px solid #ddd;
-}
-
+/* MAIN CONTENT ocupa toda la pantalla ahora */
 .main-content {
-    width: 80%;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     background-color: #f0e0c0;
-    position: relative;
+    padding-top: 20px;
 }
 
+/* Título centrado */
+.titulo-central h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+/* Grid de mesas */
 .mapa {
-    width: 90%;
-    height: 80%;
-    background-color: #e4c090;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px 20px;
-    padding: 20px;
+    width: 70%;
+  height: 80%;
+  background-color: #e4c090;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:50px 70px;
+  padding:20px;
+  border-radius:10px;
 }
 
 .mesa-box {
@@ -58,75 +70,6 @@ body {
 
 .mesa-link.ocupada .mesa-box {
     background-color: #ff0000;
-}
-
-.barra {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    grid-column: span 5;
-}
-
-.asiento {
-    width: 30px;
-    height: 30px;
-    background-color: #a0522d;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.menu-inferior {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    background-color: rgb(248, 243, 243);
-    padding: 10px 0;
-    border-top: 2px solid #ddd;
-}
-
-button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    text-decoration: underline;
-}
-
-.edition {
-    margin-top: 120%;
-    border: solid grey dashed;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.eliminate, .add-table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 88%;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 20px;
-    color: white;
-}
-
-.eliminate {
-    background-color: rgb(237, 32, 32);
-}
-
-.add-table {
-    background-color: rgb(86, 222, 32);
 }
 
 /* Modal */
@@ -182,4 +125,27 @@ button:hover {
 .keypad button:hover {
     background-color: #45a049;
     transform: scale(1.05);
+}
+
+/* BOTTOM MENU */
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(248, 243, 243);
+    padding: 10px 0;
+    border-top: 2px solid #ddd;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    text-decoration: underline;
 }
