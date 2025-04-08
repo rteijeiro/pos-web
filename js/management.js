@@ -190,23 +190,3 @@ function showAddProductForm() {
     }
   });
 }
-//delete user
-function deleteUser(name) {
-  if (confirm(`Are you sure you want to delete "${name}"?`)) {
-    fetch(
-      `connection/controller.php?action=deleteUser&name=${encodeURIComponent(
-        name
-      )}`
-    )
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.success) {
-          alert("User deleted successfully.");
-          //refresh user list
-          showUser();
-        } else {
-          alert("Error deleting user.");
-        }
-      });
-  }
-}
