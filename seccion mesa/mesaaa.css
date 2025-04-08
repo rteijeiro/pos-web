@@ -8,6 +8,7 @@ body {
 
 .container {
     display: flex;
+    flex-direction: row;
     height: 100vh;
 }
 
@@ -25,6 +26,7 @@ body {
     align-items: center;
     background-color: #f0e0c0;
     position: relative;
+    overflow-y: auto;
 }
 
 .mapa {
@@ -35,7 +37,6 @@ body {
     grid-template-columns: repeat(5, 1fr);
     gap: 10px 20px;
     padding: 20px;
-    
 }
 
 .mesa {
@@ -110,6 +111,7 @@ button:hover {
    padding: 10px;
    border-radius: 10px;
 }
+
 .eliminate {
     display: flex;
     justify-content: center;
@@ -130,4 +132,85 @@ button:hover {
     border-radius: 10px;
     padding: 10px;
     margin: 20px;
+}
+
+/* ====================== */
+/*      RESPONSIVE        */
+/* ====================== */
+
+/* Tablets (768px o menos) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar,
+    .main-content {
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .mapa {
+        width: 100%;
+        height: auto;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .mesa {
+        width: 80px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .menu-inferior {
+        flex-direction: column;
+        padding: 15px 0;
+        gap: 10px;
+    }
+
+    .edition {
+        margin-top: 20px;
+        width: 90%;
+    }
+}
+
+/* Móviles (480px o menos) */
+@media (max-width: 480px) {
+    .mapa {
+        grid-template-columns: repeat(2, 1fr);
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .mesa {
+        width: 60px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .barra {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .edition {
+        margin-top: 20px;
+    }
+
+    .eliminate,
+    .add-table {
+        width: 95%;
+        margin: 10px;
+    }
+
+    button {
+        font-size: 14px;
+    }
 }
