@@ -1,9 +1,6 @@
 <?php
-// Get the username from the URL parameter, or set it as 'desconocido' if not provided
 $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido';
-
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,27 +9,45 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
     <link rel="stylesheet" href="css/tables.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Sidebar visual -->
+        <div class="sidebar">
+            <p>TPV: <?php echo $users ?></p>
+            <h2>Seleccionar Mesa</h2>
+            <button class="establecimiento">Establecimiento</button>
+            <div class="edition">
+                <h2>Edición de mesas</h2>
+                <button class="eliminate">Eliminar mesa seleccionada</button>
+                <button class="add-table">Añadir mesa</button>
+            </div>
+        </div>
 
-    <!-- Navigation bar with username -->
-    <div class="navbar">
-        <h1>TPV: <?php echo $users; ?></h1>
-        <p>Select a table</p>
+        <div class="main-content">
+            <div class="mapa">
+                <?php for ($i = 1; $i <= 9; $i++): ?>
+                    <div class="mesa-link" data-mesa="<?= $i ?>">
+                        <div class="mesa-box">Mesa <?= $i ?></div>
+                    </div>
+                <?php endfor; ?>
+
+                <div class="barra">
+                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                        <div class="asiento" id="B<?= $i ?>">B<?= $i ?></div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Table selection area -->
-    <div class="mesas-container">
-        <div class="mesa-link" data-mesa="1" onclick="openModal(1)">
-            <div class="mesa-box">Table 1</div>
-        </div>
-        <div class="mesa-link" data-mesa="2" onclick="openModal(2)">
-            <div class="mesa-box">Table 2</div>
-        </div>
-        <div class="mesa-link" data-mesa="3" onclick="openModal(3)">
-            <div class="mesa-box">Table 3</div>
-        </div>
+    <!-- Bottom menu -->
+    <div class="menu-inferior">
+        <button>Centros de Venta</button>
+        <button>Reservas Online</button>
+        <button>Otros</button>
+        <button>Cerrar Sesión</button>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal para número de comensales -->
     <div class="modal" id="mesaModal">
         <div class="modal-content">
             <h2>TPV: <?php echo $users; ?></h2>
@@ -54,7 +69,7 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
             </div>
         </div>
     </div>
+
     <script src="js/tables.js"></script>
 </body>
 </html>
-
