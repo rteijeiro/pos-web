@@ -15,11 +15,7 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
             <p>TPV: <?php echo $users ?></p>
             <h2>Seleccionar Mesa</h2>
             <button class="establecimiento">Establecimiento</button>
-            <div class="edition">
-                <h2>Edición de mesas</h2>
-                <button class="eliminate">Eliminar mesa seleccionada</button>
-                <button class="add-table">Añadir mesa</button>
-            </div>
+            
         </div>
 
         <div class="main-content">
