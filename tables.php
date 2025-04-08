@@ -14,7 +14,6 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
         <div class="sidebar">
             <p>TPV: <?php echo $users ?></p>
             <h2>Seleccionar Mesa</h2>
-            <button class="establecimiento">Establecimiento</button>
             
         </div>
 
@@ -25,12 +24,6 @@ $users = isset($_GET['users']) ? htmlspecialchars($_GET['users']) : 'desconocido
                         <div class="mesa-box">Mesa <?= $i ?></div>
                     </div>
                 <?php endfor; ?>
-
-                <div class="barra">
-                    <?php for ($i = 1; $i <= 10; $i++): ?>
-                        <div class="asiento" id="B<?= $i ?>">B<?= $i ?></div>
-                    <?php endfor; ?>
-                </div>
             </div>
         </div>
     </div>
