@@ -1,26 +1,26 @@
 <?php
+error_reporting(0);
+header('Content-Type: application/json');
+
 include 'connection/db.php';
 include 'connection/controller.php';
-//response header
-header("Content-Type: application/json");
-//define the response in json
-$data = json_decode(file_get_contents("php://input"), true);
-//checks whether the data have been received
-if (!$data || !isset($data['date'], $data['total'])) {
-    echo json_encode(["error" => "Faltan datos en la solicitud"]);
+
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['date'], $data['total'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Faltan datos'
+    ]);
     exit;
 }
 
-//convert values
 $date = $data['date'];
-$total = floatval($data['total']);
-//saves the payment in the database
-$result = savePayments($pdo, $date, $total);
+$total = $data['total'];
 
-//if it returns true, the payment was saved
-if ($result) {
-    echo json_encode(["message" => "Pago guardado con éxito"]);
-} else {
-    echo json_encode(["error" => "No se pudo guardar el pago"]);
-}
-?>
+$success = savePayments($pdo, $date, $total);
+
+echo json_encode([
+    'success' => $success,
+    'message' => $success ? 'Pago guardado correctamente' : 'Error al guardar el pago'
+]);
