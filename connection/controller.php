@@ -170,19 +170,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     $uploadDir = '../carta_seccion_3/';
     $uploadPath = $uploadDir . $imgName;
 
-    if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
-        try {
-            $stmt = $pdo->prepare("INSERT INTO products (name, price, category_id, img) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$name, $price, $category_id, $imgName]);
-            echo json_encode(['success' => true]);
-        } catch (PDOException $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    // Only move the file if it doesn't already exist
+    if (!file_exists($uploadPath)) {
+        if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
+            echo json_encode(['success' => false, 'message' => 'Image upload failed']);
+            exit;
         }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Image upload failed']);
     }
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO products (name, price, category_id, img) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$name, $price, $category_id, $imgName]);
+        echo json_encode(['success' => true]);
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+
     exit;
 }
+
 
 //function to insert user
 function addUser($pdo, $name, $rol, $img)
@@ -215,31 +221,36 @@ function addUser($pdo, $name, $rol, $img)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addUser') {
     $name = $_POST['name'];
     $rol = $_POST['rol'];
-    //empty password by default
+    // Empty password by default
     $password = '';
 
-    //handle image upload
+    // Handle image upload
     $imgName = basename($_FILES['img']['name']);
-    $uploadDir = '../carta_seccion_3/';
+    $uploadDir = '../images/app/';
     $uploadPath = $uploadDir . $imgName;
 
-    if (move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
-        try {
-            $stmt = $pdo->prepare("INSERT INTO users (name, password, rol, img) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$name, $password, $rol, $imgName]);
-
-            echo json_encode(['success' => true]);
-        } catch (PDOException $e) {
+    // Only move the image if it doesn't already exist
+    if (!file_exists($uploadPath)) {
+        if (!move_uploaded_file($_FILES['img']['tmp_name'], $uploadPath)) {
             echo json_encode([
                 'success' => false,
-                'message' => 'Database error: ' . $e->getMessage()
+                'message' => 'Image upload failed'
             ]);
+            exit;
         }
-    } else {
+    }
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO users (name, password, rol, img) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$name, $password, $rol, $imgName]);
+
+        echo json_encode(['success' => true]);
+    } catch (PDOException $e) {
         echo json_encode([
             'success' => false,
-            'message' => 'Image upload failed'
+            'message' => 'Database error: ' . $e->getMessage()
         ]);
     }
+
     exit;
 }
